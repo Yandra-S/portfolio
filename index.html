@@ -6,27 +6,29 @@
   <meta name="robots" content="noindex,nofollow" />
   <title>Portfólio</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      background: #000000;
-    }
-
-    .wrap {
+      padding: 0;
+      background: #000;
       width: 100%;
+      height: 100%;
+      overflow-x: hidden;
     }
 
+    /* remove qualquer “gap” por padrão */
     img {
-      width: 100%;
-      height: auto;
       display: block;
+      width: 100vw;   /* ocupa a largura inteira da tela */
+      height: auto;
+      margin: 0;
+      padding: 0;
+      border: 0;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <img src="p1.jpg.jpg" alt="Portfólio parte 1">
-    <img src="p2.jpg.jpg" alt="Portfólio parte 2">
-    <img src="p3.jpg.jpg" alt="Portfólio parte 3">
-  </div>
+  <img src="p1.jpg.jpg" alt="Portfólio parte 1">
+  <img src="p2.jpg.jpg" alt="Portfólio parte 2">
+  <img src="p3.jpg.jpg" alt="Portfólio parte 3">
 </body>
 </html>
