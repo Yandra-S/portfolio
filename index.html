@@ -116,7 +116,7 @@
         class="hotspot btn-precos"
         href="precos.html"
         aria-label="Ver tabela de preços"
-        onclick="sessionStorage.setItem('portfolioScroll', window.scrollY);"
+        onclick="sessionStorage.setItem('portfolioScroll', String(window.scrollY));"
       >
         Ver tabela de preços
       </a>
@@ -135,9 +135,24 @@
 
   <script>
     window.addEventListener('load', function () {
+      const params = new URLSearchParams(window.location.search);
+      const shouldRestore = params.get('restore') === '1';
       const savedScroll = sessionStorage.getItem('portfolioScroll');
-      if (savedScroll !== null) {
-        window.scrollTo(0, parseInt(savedScroll, 10));
+
+      if (shouldRestore && savedScroll !== null) {
+        const y = parseInt(savedScroll, 10);
+
+        const restoreScroll = function () {
+          window.scrollTo(0, y);
+        };
+
+        restoreScroll();
+        setTimeout(restoreScroll, 150);
+        setTimeout(restoreScroll, 500);
+        setTimeout(restoreScroll, 1000);
+
+        sessionStorage.removeItem('portfolioScroll');
+        history.replaceState({}, document.title, window.location.pathname);
       }
     });
   </script>
