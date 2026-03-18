@@ -134,10 +134,6 @@
   </div>
 
   <script>
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-
     window.addEventListener('load', function () {
       const shouldRestore = sessionStorage.getItem('portfolioReturn') === '1';
       const savedScroll = sessionStorage.getItem('portfolioScroll');
@@ -145,19 +141,14 @@
       if (shouldRestore && savedScroll !== null) {
         const y = parseInt(savedScroll, 10);
 
-        sessionStorage.removeItem('portfolioReturn');
-        sessionStorage.removeItem('portfolioScroll');
-
         const restore = function () {
           window.scrollTo(0, y);
         };
 
         restore();
-        requestAnimationFrame(restore);
-        setTimeout(restore, 120);
-        setTimeout(restore, 300);
-        setTimeout(restore, 700);
-      } else {
+        setTimeout(restore, 150);
+        setTimeout(restore, 500);
+
         sessionStorage.removeItem('portfolioReturn');
       }
     });
