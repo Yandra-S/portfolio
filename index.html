@@ -134,42 +134,42 @@
   </div>
 
   <script>
-    // 1. Evita que o navegador tente rolar sozinho e cause conflito no início
+    // 1. Forçamos o modo manual permanentemente para termos controle total
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
 
-    // 2. Salva a posição do scroll em tempo real para o F5 funcionar
-    window.addEventListener('scroll', function() {
-      sessionStorage.setItem('portfolioScroll', String(window.scrollY));
+    // 2. Função para salvar a posição atual
+    function savePosition() {
+      sessionStorage.setItem('portfolioScroll', window.scrollY);
+    }
+
+    // Ouvinte de scroll com um pequeno atraso para não sobrecarregar o navegador
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(savePosition, 50);
     });
 
-    // 3. Função principal de restauração
-    function restorePosition() {
+    // 3. Função de restauração inteligente
+    function restoreScroll() {
       const savedScroll = sessionStorage.getItem('portfolioScroll');
-      const isReturning = sessionStorage.getItem('portfolioReturn') === '1';
-
       if (savedScroll !== null) {
-        const y = parseInt(savedScroll, 10);
-        
-        // Aplica o scroll imediatamente
-        window.scrollTo(0, y);
-
-        // Se o usuário clicou em "Voltar" na página de preços, limpamos a flag
-        if (isReturning) {
-          sessionStorage.removeItem('portfolioReturn');
-        }
-      }
-
-      // Reativa o modo automático para o comportamento nativo do navegador (F5)
-      if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'auto';
+        window.scrollTo(0, parseInt(savedScroll, 10));
       }
     }
 
-    // Tenta restaurar o quanto antes (DOM pronto) e reforça no carregamento total (Load)
-    document.addEventListener('DOMContentLoaded', restorePosition);
-    window.addEventListener('load', restorePosition);
+    // Tenta restaurar em múltiplos estágios do carregamento
+    // Isso garante que, se as imagens carregarem e empurrarem o layout, o script corrige a posição.
+    window.addEventListener('DOMContentLoaded', restoreScroll);
+    window.addEventListener('load', restoreScroll);
+    
+    // Um último reforço caso o carregamento das imagens seja lento
+    setTimeout(restoreScroll, 100);
+    setTimeout(restoreScroll, 500);
+
+    // Limpeza: Se o usuário clicar em um link interno que não seja "preços" (caso adicione mais), 
+    // ou se você quiser que o scroll resete ao fechar a aba, o sessionStorage já cuida disso.
   </script>
 </body>
 </html>
