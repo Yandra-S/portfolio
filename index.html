@@ -3,9 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex" />
-  <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet,noimageindex" />
-  <meta name="referrer" content="no-referrer" />
   <title>Portfólio</title>
 
   <style>
@@ -15,43 +12,15 @@
       background: #000;
       width: 100%;
       overflow-x: hidden;
-      scrollbar-color: #111 #000;
-      scrollbar-width: thin;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #000;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #111;
-      border-radius: 10px;
-      border: 2px solid #000;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #222;
-    }
-
-    .wrap {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-    }
+    .wrap { width: 100%; }
 
     .section {
       position: relative;
       width: 100%;
-      margin: 0;
-      padding: 0;
       line-height: 0;
     }
 
@@ -59,22 +28,12 @@
       display: block;
       width: 100%;
       height: auto;
-      margin: 0;
-      padding: 0;
-      border: 0;
-      user-select: none;
-      -webkit-user-drag: none;
-      pointer-events: none;
     }
 
     .hotspot {
       position: absolute;
-      display: block;
       z-index: 999;
-      background: rgba(255,255,255,0);
-      outline: none;
-      text-indent: -9999px;
-      overflow: hidden;
+      background: transparent;
       cursor: pointer;
     }
 
@@ -98,22 +57,22 @@
 
   <script>
     const imagens = [
-      "Página 1 - Final (1).jpg",
-      "Página 2 - Final (1).jpg",
-      "Página 3 - Final (1).jpg",
-      "Página 4 - Final (1).jpg",
-      "Página 5 - Final (1).jpg"
+      "./Página 1 - Final (1).jpg",
+      "./Página 2 - Final (1).jpg",
+      "./Página 3 - Final (1).jpg",
+      "./Página 4 - Final (1).jpg",
+      "./Página 5 - Final (1).jpg"
     ];
 
     const wrap = document.getElementById("portfolioWrap");
 
-    imagens.forEach((nome, index) => {
+    imagens.forEach((src, index) => {
       const section = document.createElement("div");
       section.className = "section";
 
       const img = document.createElement("img");
-      img.src = encodeURI(nome);
-      img.alt = `Portfólio página ${index + 1}`;
+      img.src = src;
+      img.alt = `Página ${index + 1}`;
       img.loading = index === 0 ? "eager" : "lazy";
 
       section.appendChild(img);
@@ -121,17 +80,12 @@
       if (index === imagens.length - 1) {
         const btnPrecos = document.createElement("a");
         btnPrecos.className = "hotspot btn-precos";
-        btnPrecos.href = encodeURI("preços.html");
-        btnPrecos.setAttribute("aria-label", "Ver tabela de preços");
-        btnPrecos.textContent = "Ver tabela de preços";
+        btnPrecos.href = "./precos.html";
 
         const btnWhats = document.createElement("a");
         btnWhats.className = "hotspot btn-whatsapp";
-        btnWhats.href = "https://wa.me/5585985200377?text=Ol%C3%A1!%20Tudo%20bem%3F%20%F0%9F%98%8A%0A%0AAcabei%20de%20ver%20seu%20portf%C3%B3lio%20e%20o%20seu%20trabalho%20se%20encaixa%20muito%20bem%20com%20o%20que%20estou%20buscando.%0A%0AEstou%20precisando%20de%20um%20designer%20para%20%5BDESCREVA%20SUA%20DEMANDA%20AQUI%20%5D.%20Voc%C3%AA%20teria%20disponibilidade%20para%20a%20gente%20conversar%3F%20";
+        btnWhats.href = "https://wa.me/5585985200377";
         btnWhats.target = "_blank";
-        btnWhats.rel = "noopener noreferrer";
-        btnWhats.setAttribute("aria-label", "Falar no WhatsApp");
-        btnWhats.textContent = "Falar no WhatsApp";
 
         section.appendChild(btnPrecos);
         section.appendChild(btnWhats);
