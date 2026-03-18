@@ -15,10 +15,30 @@
       background: #000;
       width: 100%;
       overflow-x: hidden;
+      scrollbar-color: #111 #000;
+      scrollbar-width: thin;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #111;
+      border-radius: 10px;
+      border: 2px solid #000;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #222;
     }
 
     .wrap {
@@ -51,26 +71,24 @@
       position: absolute;
       display: block;
       z-index: 999;
-      background: rgba(255, 0, 0, 0.28);
-      outline: 2px solid #ffffff;
+      background: rgba(255, 255, 255, 0);
+      outline: none;
       text-indent: -9999px;
       overflow: hidden;
       cursor: pointer;
     }
 
-    /* Botão: Tabela de preços */
     .btn-precos {
       left: 61.5%;
       top: 92.6%;
-      width: 37.0%;
+      width: 37%;
       height: 1.8%;
     }
 
-    /* Botão: WhatsApp */
     .btn-whatsapp {
       left: 61.5%;
       top: 94.5%;
-      width: 37.0%;
+      width: 37%;
       height: 1.9%;
     }
   </style>
@@ -78,27 +96,27 @@
 <body>
   <div class="wrap">
     <div class="section">
-      <img src="Pagina 1 - Final (1).jpg" alt="Portfólio página 1" loading="eager">
+      <img src="Página 1 - Final (1).jpg" alt="Portfólio página 1" loading="eager">
     </div>
 
     <div class="section">
-      <img src="Pagina 2 - Final (1).jpg" alt="Portfólio página 2" loading="lazy">
+      <img src="Página 2 - Final (1).jpg" alt="Portfólio página 2" loading="lazy">
     </div>
 
     <div class="section">
-      <img src="Pagina 3 - Final (1).jpg" alt="Portfólio página 3" loading="lazy">
+      <img src="Página 3 - Final (1).jpg" alt="Portfólio página 3" loading="lazy">
     </div>
 
     <div class="section">
-      <img src="Pagina 4 - Final (1).jpg" alt="Portfólio página 4" loading="lazy">
+      <img src="Página 4 - Final (1).jpg" alt="Portfólio página 4" loading="lazy">
     </div>
 
     <div class="section">
-      <img src="Pagina 5 - Final (1).jpg" alt="Portfólio página 5" loading="lazy">
+      <img src="Página 5 - Final (1).jpg" alt="Portfólio página 5" loading="lazy">
 
       <a
         class="hotspot btn-precos"
-        href="precos.html"
+        href="preços.html"
         aria-label="Ver tabela de preços"
       >
         Ver tabela de preços
