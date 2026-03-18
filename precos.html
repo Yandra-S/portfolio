@@ -15,10 +15,30 @@
       background: #000;
       width: 100%;
       overflow-x: hidden;
+      scrollbar-color: #111 #000;
+      scrollbar-width: thin;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #111;
+      border-radius: 10px;
+      border: 2px solid #000;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #222;
     }
 
     .topbar {
@@ -39,6 +59,7 @@
       border: 1px solid rgba(255,255,255,0.25);
       padding: 10px 14px;
       border-radius: 10px;
+      background: rgba(0,0,0,0.35);
     }
 
     .section {
@@ -61,29 +82,28 @@
       position: absolute;
       display: block;
       z-index: 999;
-      background: rgba(0, 255, 0, 0.28);
-      outline: 2px solid #ffffff;
+      background: rgba(255,255,255,0);
+      outline: none;
       text-indent: -9999px;
       overflow: hidden;
       cursor: pointer;
     }
 
-    /* Botão Social Mídia na imagem 1400 x 1793 */
     .btn-social-midias {
-      left: 16.0%;
+      left: 16%;
       top: 79.1%;
-      width: 69.0%;
-      height: 13.0%;
+      width: 69%;
+      height: 13%;
     }
   </style>
 </head>
 <body>
   <div class="topbar">
-    <a class="back-link" href="index.html">Voltar ao portfólio</a>
+    <a class="back-link" href="#" onclick="history.back(); return false;">Voltar ao portfólio</a>
   </div>
 
   <div class="section">
-    <img src="Pagina extra.jpg" alt="Tabela de preços" loading="eager">
+    <img src="Página extra.jpg" alt="Tabela de preços" loading="eager">
 
     <a
       class="hotspot btn-social-midias"
