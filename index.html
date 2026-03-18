@@ -134,22 +134,33 @@
   </div>
 
   <script>
+    // 1. Manter a restauração automática para o F5 funcionar nativamente
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'auto';
+    }
+
+    // 2. Salvar a posição do scroll sempre que o usuário navegar (para o F5 e retornos)
+    window.addEventListener('scroll', function() {
+      sessionStorage.setItem('portfolioScroll', String(window.scrollY));
+    });
+
+    // 3. Lógica específica para quando voltar da página de preços
     window.addEventListener('load', function () {
       const shouldRestore = sessionStorage.getItem('portfolioReturn') === '1';
       const savedScroll = sessionStorage.getItem('portfolioScroll');
 
       if (shouldRestore && savedScroll !== null) {
         const y = parseInt(savedScroll, 10);
-
-        const restore = function () {
-          window.scrollTo(0, y);
-        };
-
-        restore();
-        setTimeout(restore, 150);
-        setTimeout(restore, 500);
-
-        sessionStorage.removeItem('portfolioReturn');
+        
+        // Pequeno atraso para garantir que as imagens (mesmo lazy) não quebrem o scroll
+        setTimeout(() => {
+          window.scrollTo({
+            top: y,
+            behavior: 'instant'
+          });
+          // Limpa a flag de "retorno" para não interferir em acessos futuros diretos
+          sessionStorage.removeItem('portfolioReturn');
+        }, 50);
       }
     });
   </script>
