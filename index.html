@@ -116,7 +116,7 @@
         class="hotspot btn-precos"
         href="precos.html"
         aria-label="Ver tabela de preços"
-        onclick="sessionStorage.setItem('portfolioScroll', String(window.scrollY)); sessionStorage.setItem('portfolioShouldRestore', '1');"
+        onclick="sessionStorage.setItem('portfolioScroll', String(window.scrollY));"
       >
         Ver tabela de preços
       </a>
@@ -139,30 +139,26 @@
     }
 
     window.addEventListener('load', function () {
-      const params = new URLSearchParams(window.location.search);
-      const shouldRestoreFromUrl = params.get('restore') === '1';
-      const shouldRestoreFromSession = sessionStorage.getItem('portfolioShouldRestore') === '1';
+      const shouldRestore = sessionStorage.getItem('portfolioReturn') === '1';
       const savedScroll = sessionStorage.getItem('portfolioScroll');
 
-      if (shouldRestoreFromUrl && shouldRestoreFromSession && savedScroll !== null) {
+      if (shouldRestore && savedScroll !== null) {
         const y = parseInt(savedScroll, 10);
 
-        sessionStorage.removeItem('portfolioShouldRestore');
+        sessionStorage.removeItem('portfolioReturn');
         sessionStorage.removeItem('portfolioScroll');
-        history.replaceState({}, document.title, window.location.pathname);
 
-        const restoreScroll = function () {
+        const restore = function () {
           window.scrollTo(0, y);
         };
 
-        restoreScroll();
-        requestAnimationFrame(restoreScroll);
-        setTimeout(restoreScroll, 150);
-        setTimeout(restoreScroll, 400);
-        setTimeout(restoreScroll, 800);
+        restore();
+        requestAnimationFrame(restore);
+        setTimeout(restore, 120);
+        setTimeout(restore, 300);
+        setTimeout(restore, 700);
       } else {
-        sessionStorage.removeItem('portfolioShouldRestore');
-        history.replaceState({}, document.title, window.location.pathname);
+        sessionStorage.removeItem('portfolioReturn');
       }
     });
   </script>
