@@ -134,35 +134,42 @@
   </div>
 
   <script>
-    // 1. Manter a restauração automática para o F5 funcionar nativamente
+    // 1. Evita que o navegador tente rolar sozinho e cause conflito no início
     if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'auto';
+      history.scrollRestoration = 'manual';
     }
 
-    // 2. Salvar a posição do scroll sempre que o usuário navegar (para o F5 e retornos)
+    // 2. Salva a posição do scroll em tempo real para o F5 funcionar
     window.addEventListener('scroll', function() {
       sessionStorage.setItem('portfolioScroll', String(window.scrollY));
     });
 
-    // 3. Lógica específica para quando voltar da página de preços
-    window.addEventListener('load', function () {
-      const shouldRestore = sessionStorage.getItem('portfolioReturn') === '1';
+    // 3. Função principal de restauração
+    function restorePosition() {
       const savedScroll = sessionStorage.getItem('portfolioScroll');
+      const isReturning = sessionStorage.getItem('portfolioReturn') === '1';
 
-      if (shouldRestore && savedScroll !== null) {
+      if (savedScroll !== null) {
         const y = parseInt(savedScroll, 10);
         
-        // Pequeno atraso para garantir que as imagens (mesmo lazy) não quebrem o scroll
-        setTimeout(() => {
-          window.scrollTo({
-            top: y,
-            behavior: 'instant'
-          });
-          // Limpa a flag de "retorno" para não interferir em acessos futuros diretos
+        // Aplica o scroll imediatamente
+        window.scrollTo(0, y);
+
+        // Se o usuário clicou em "Voltar" na página de preços, limpamos a flag
+        if (isReturning) {
           sessionStorage.removeItem('portfolioReturn');
-        }, 50);
+        }
       }
-    });
+
+      // Reativa o modo automático para o comportamento nativo do navegador (F5)
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'auto';
+      }
+    }
+
+    // Tenta restaurar o quanto antes (DOM pronto) e reforça no carregamento total (Load)
+    document.addEventListener('DOMContentLoaded', restorePosition);
+    window.addEventListener('load', restorePosition);
   </script>
 </body>
 </html>
